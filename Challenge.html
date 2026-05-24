@@ -435,6 +435,70 @@
   margin:0 0 18px;font-size:12px;font-weight:600;
   color:rgba(31,42,68,.55);
 }
+#quizResultOverlay .quiz-result-review-btn{
+  width:100%;margin:0 0 10px;border-radius:14px;
+  padding:12px 16px;font-family:inherit;font-size:14px;font-weight:800;
+  cursor:pointer;border:1px solid rgba(48,66,216,.22);
+  background:#f5f7ff;color:#3042d8;
+  box-shadow:0 6px 16px rgba(48,66,216,.1);
+}
+#quizResultOverlay .quiz-result-review-btn:hover{
+  background:#eef2ff;
+}
+#quizResultOverlay .quiz-result-modal.quiz-result-review-mode{
+  width:min(480px,100%);
+  max-height:min(92dvh,720px);
+  text-align:left;
+  padding:22px 18px 18px;
+}
+#quizResultReviewView{
+  position:relative;z-index:1;
+  max-height:min(68dvh,560px);
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+#quizResultReviewView .quiz-review-heading{
+  margin:0 0 12px;font-size:18px;font-weight:900;color:#1f2a44;
+  text-align:center;
+}
+.quiz-review-item{
+  margin-bottom:12px;padding:12px 12px 10px;
+  border-radius:14px;border:1px solid rgba(48,66,216,.14);
+  background:rgba(255,255,255,.85);
+}
+.quiz-review-item.is-correct{border-color:rgba(16,185,129,.35);background:rgba(236,253,245,.5)}
+.quiz-review-item.is-wrong{border-color:rgba(251,113,133,.35);background:rgba(255,241,242,.45)}
+.quiz-review-item h4{
+  margin:0 0 8px;font-size:13px;font-weight:900;color:#3042d8;
+}
+.quiz-review-q{
+  margin:0 0 10px;font-size:13px;font-weight:700;line-height:1.45;color:#1f2a44;
+}
+.quiz-review-ans{
+  margin:0 0 6px;font-size:12px;font-weight:700;line-height:1.4;
+}
+.quiz-review-ans span{display:inline-block;min-width:18px;font-weight:900}
+.quiz-review-ans.user-wrong{color:#b4234a}
+.quiz-review-ans.user-correct{color:#047857}
+.quiz-review-ans.correct-ans{color:#047857}
+.quiz-review-explain{
+  margin-top:10px;padding:10px 11px;border-radius:10px;
+  background:linear-gradient(135deg,rgba(48,66,216,.06),rgba(24,166,196,.08));
+  border:1px solid rgba(48,66,216,.12);
+}
+.quiz-review-explain strong{
+  display:block;margin-bottom:4px;font-size:11px;font-weight:900;
+  text-transform:uppercase;letter-spacing:.04em;color:#3042d8;
+}
+.quiz-review-explain p{
+  margin:0;font-size:12px;font-weight:600;line-height:1.5;color:rgba(31,42,68,.78);
+}
+#quizReviewBackBtn{
+  width:100%;margin-top:12px;border:0;border-radius:14px;
+  padding:12px 16px;font-family:inherit;font-size:14px;font-weight:800;
+  color:#fff;cursor:pointer;
+  background:linear-gradient(135deg,#3042d8,#18a6c4);
+}
 #quizResultOverlay .quiz-result-done{
   width:100%;border:0;border-radius:14px;
   padding:12px 18px;font-family:inherit;font-size:15px;font-weight:800;
@@ -4133,12 +4197,20 @@ body.admin-mode .topbar{
     <div class="challenge-modal quiz-result-modal" id="quizResultModal" role="dialog" aria-modal="true" aria-labelledby="quizResultTitle">
       <div class="quiz-result-confetti" id="quizResultConfetti" aria-hidden="true"></div>
       <button class="challenge-close quiz-result-close" type="button" data-close-result aria-label="Close">×</button>
-      <div class="quiz-result-icon" id="quizResultIcon" aria-hidden="true">🏆</div>
-      <h3 class="quiz-result-title" id="quizResultTitle">Challenge Complete</h3>
-      <p class="quiz-result-score" id="quizResultScore">0/5</p>
-      <p class="quiz-result-msg" id="quizResultText"></p>
-      <p class="quiz-result-meta" id="quizResultMeta"></p>
-      <button class="quiz-result-done" type="button" data-close-result>Done</button>
+      <div id="quizResultMainView">
+        <div class="quiz-result-icon" id="quizResultIcon" aria-hidden="true">🏆</div>
+        <h3 class="quiz-result-title" id="quizResultTitle">Challenge Complete</h3>
+        <p class="quiz-result-score" id="quizResultScore">0/5</p>
+        <p class="quiz-result-msg" id="quizResultText"></p>
+        <p class="quiz-result-meta" id="quizResultMeta"></p>
+        <button class="quiz-result-review-btn" type="button" id="quizReviewAnswersBtn">📋 Review my answers &amp; explanations</button>
+        <button class="quiz-result-done" type="button" data-close-result>Done</button>
+      </div>
+      <div id="quizResultReviewView" hidden>
+        <h3 class="quiz-review-heading">Your answers</h3>
+        <div id="quizReviewList"></div>
+        <button type="button" id="quizReviewBackBtn">← Back to results</button>
+      </div>
     </div>
   </div>
 
@@ -5456,7 +5528,52 @@ body.admin-mode .topbar{
         openOverlay(resultOverlay);
       }
 
+      function resetQuizResultViews(){
+        var main = document.getElementById('quizResultMainView');
+        var review = document.getElementById('quizResultReviewView');
+        var modal = document.getElementById('quizResultModal');
+        if(main) main.hidden = false;
+        if(review) review.hidden = true;
+        if(modal) modal.classList.remove('quiz-result-review-mode');
+      }
+
+      function renderQuizAnswerReview(){
+        var list = document.getElementById('quizReviewList');
+        if(!list) return;
+        var letters = ['A', 'B', 'C', 'D'];
+        list.innerHTML = quiz.questions.map(function(q, i){
+          var userIdx = quiz.answers[i];
+          var correctIdx = q.correctIndex;
+          var isCorrect = userIdx === correctIdx;
+          var userText = userIdx != null && q.options[userIdx] != null ? q.options[userIdx] : 'No answer selected';
+          var correctText = q.options[correctIdx] || '—';
+          var explain = (q.explanation && String(q.explanation).trim()) ? q.explanation : 'No explanation provided for this question.';
+          var userCls = isCorrect ? 'user-correct' : 'user-wrong';
+          var itemCls = isCorrect ? 'is-correct' : 'is-wrong';
+          var userLetter = userIdx != null ? letters[userIdx] : '—';
+          var correctLetter = letters[correctIdx] || '?';
+          return '<article class="quiz-review-item ' + itemCls + '">' +
+            '<h4>Question ' + (i + 1) + (isCorrect ? ' ✓' : ' ✗') + '</h4>' +
+            '<p class="quiz-review-q">' + lbEsc(q.text || q.title || '') + '</p>' +
+            '<p class="quiz-review-ans ' + userCls + '"><span>Your answer (' + userLetter + '):</span> ' + lbEsc(userText) + '</p>' +
+            (!isCorrect ? '<p class="quiz-review-ans correct-ans"><span>Correct answer (' + correctLetter + '):</span> ' + lbEsc(correctText) + '</p>' : '') +
+            '<div class="quiz-review-explain"><strong>Why this answer is correct</strong><p>' + lbEsc(explain) + '</p></div>' +
+            '</article>';
+        }).join('');
+      }
+
+      function openQuizAnswerReview(){
+        var main = document.getElementById('quizResultMainView');
+        var review = document.getElementById('quizResultReviewView');
+        var modal = document.getElementById('quizResultModal');
+        renderQuizAnswerReview();
+        if(main) main.hidden = true;
+        if(review) review.hidden = false;
+        if(modal) modal.classList.add('quiz-result-review-mode');
+      }
+
       function showQuizRejected(score, total, timeSeconds, signals){
+        resetQuizResultViews();
         var modal = document.getElementById('quizResultModal');
         if(modal) modal.className = 'challenge-modal quiz-result-modal result-rejected';
         var iconEl = document.getElementById('quizResultIcon');
@@ -5495,6 +5612,7 @@ body.admin-mode .topbar{
       }
 
       function showQuizResult(score, total, timeSeconds){
+        resetQuizResultViews();
         var tier;
         if(score >= 4 || score === total) tier = 'celebrate';
         else if(score >= 3) tier = 'encourage';
@@ -5600,8 +5718,19 @@ body.admin-mode .topbar{
         });
       }
       document.querySelectorAll('[data-close-result]').forEach(function(b){
-        b.addEventListener('click', function(){ closeOverlay(resultOverlay); });
+        b.addEventListener('click', function(){
+          resetQuizResultViews();
+          closeOverlay(resultOverlay);
+        });
       });
+      var quizReviewBtn = document.getElementById('quizReviewAnswersBtn');
+      if(quizReviewBtn){
+        quizReviewBtn.addEventListener('click', openQuizAnswerReview);
+      }
+      var quizReviewBackBtn = document.getElementById('quizReviewBackBtn');
+      if(quizReviewBackBtn){
+        quizReviewBackBtn.addEventListener('click', resetQuizResultViews);
+      }
 
       document.addEventListener('visibilitychange', function(){
         if(!isQuizActive() || !document.hidden) return;
