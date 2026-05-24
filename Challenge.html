@@ -3804,6 +3804,10 @@ body.admin-mode .topbar{
           </div>
 
           <div id="adminDashboard" class="admin-page active">
+            <div class="admin-challenge-toggle-wrap" style="margin:0 0 16px;display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+              <button type="button" class="btn green" id="adminToggleChallengeBtn">Pause Challenge</button>
+              <span id="adminChallengeStatusLabel" style="font-size:13px;font-weight:700;color:rgba(31,42,68,.72)">Status: Active</span>
+            </div>
             <div class="admin-dash-mobile admin-m-only">
               <h2 class="admin-dash-title">Admin Dashboard</h2>
               <p class="admin-dash-sub">Manage challenges, questions and participants.</p>
@@ -4542,12 +4546,37 @@ body.admin-mode .topbar{
         renderAdminAll();
       }
 
+      function updateChallengeToggleButton(){
+        var btn = $('adminToggleChallengeBtn');
+        var label = $('adminChallengeStatusLabel');
+        var st = settings();
+        if(!btn) return;
+        if(st.isActive){
+          btn.textContent = 'Pause Challenge';
+          btn.className = 'btn danger';
+          if(label) label.textContent = 'Status: Active — staff can start';
+        }else{
+          btn.textContent = 'Activate Challenge';
+          btn.className = 'btn green';
+          if(label) label.textContent = 'Status: Paused — staff cannot start';
+        }
+      }
+
+      function toggleChallengeActive(){
+        var st = settings();
+        st.isActive = !st.isActive;
+        saveSettingsObj(st);
+        renderAdminAll();
+        showToast(st.isActive ? 'Challenge is now active.' : 'Challenge is now paused.');
+      }
+
       function renderAdminAll(){
         renderAdminStats();
         renderActiveQuestionsDropdown();
         renderQuestionList();
         renderResultsTable();
         renderSettingsForm();
+        updateChallengeToggleButton();
         var pill = $('activeWeekPill');
         var st = settings();
         if(pill) pill.textContent = st.isActive ? ('✨ ' + (st.weekTitle || 'Challenge Ready')) : '⏸ Challenge Paused';
@@ -5002,6 +5031,9 @@ body.admin-mode .topbar{
       }
       $('clearAttemptsBtn').addEventListener('click', clearAttempts);
       $('saveSettingsBtn').addEventListener('click', saveSettings);
+      if($('adminToggleChallengeBtn')){
+        $('adminToggleChallengeBtn').addEventListener('click', toggleChallengeActive);
+      }
       if($('qImage')) $('qImage').addEventListener('change', handleImageUpload);
       if($('qImageRemove')){
         $('qImageRemove').addEventListener('click', function(){
