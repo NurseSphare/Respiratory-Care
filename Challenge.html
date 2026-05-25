@@ -1240,7 +1240,7 @@ body::after{
   right:525px;
   width:320px;
   display:grid;
-  gap:24px;
+  gap:20px;
   z-index:13;
 }
 
@@ -3676,6 +3676,1039 @@ body.admin-mode .topbar{
   pointer-events:none;
 }
 
+
+
+
+
+
+/* =========================
+   Enter the Arena Card Styles
+   Add at the END of your <style>
+   ========================= */
+
+/* Desktop / Mobile visibility */
+.mobile-only{
+  display:none !important;
+}
+
+.desktop-only{
+  display:inline-flex;
+}
+
+.entry-card .desktop-only{
+  display:inline-flex;
+}
+
+/* Main card */
+.glass.entry-card{
+  width:min(505px, 100%);
+  margin:16px 0 0 auto;
+  padding:18px;
+  border-radius:26px;
+  position:relative;
+  overflow:hidden;
+  color:#1f2a44;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.92), rgba(255,255,255,.62)),
+    radial-gradient(circle at top right, rgba(24,166,196,.20), transparent 36%);
+  border:1px solid rgba(255,255,255,.75);
+  box-shadow:
+    0 20px 50px rgba(24,35,90,.18),
+    inset 0 1px 0 rgba(255,255,255,.9);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+}
+
+.glass.entry-card::before{
+  content:"";
+  position:absolute;
+  top:-65px;
+  right:-60px;
+  width:145px;
+  height:145px;
+  border-radius:50%;
+  background:linear-gradient(135deg, rgba(48,66,216,.22), rgba(18,163,143,.18));
+  pointer-events:none;
+}
+
+.glass.entry-card::after{
+  content:"";
+  position:absolute;
+  left:18px;
+  right:18px;
+  top:0;
+  height:3px;
+  border-radius:0 0 999px 999px;
+  background:linear-gradient(90deg, #3042d8, #18a6c4, #12a38f, #ff9f43);
+}
+
+/* Header */
+.entry-panel-head{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+.entry-panel-head h3{
+  margin:0;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#14213d;
+  font-size:22px;
+  line-height:1.05;
+  font-weight:950;
+  letter-spacing:-.5px;
+}
+
+.entry-panel-head p{
+  margin:6px 0 0;
+  color:rgba(31,42,68,.64);
+  font-size:12px;
+  line-height:1.4;
+  font-weight:700;
+}
+
+/* Live badge */
+.badge.green{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:6px 10px;
+  border-radius:999px;
+  color:#047857;
+  background:rgba(16,185,129,.14);
+  border:1px solid rgba(16,185,129,.26);
+  font-size:11px;
+  font-weight:950;
+}
+
+.badge.green::before{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#10b981;
+  box-shadow:0 0 0 5px rgba(16,185,129,.14);
+}
+
+/* Inputs */
+.input-icon-group{
+  position:relative;
+  z-index:1;
+  margin-bottom:10px;
+}
+
+.input-icon-group label{
+  display:block;
+  margin:0 0 6px 3px;
+  color:#25314f;
+  font-size:11px;
+  font-weight:950;
+  letter-spacing:.3px;
+  text-transform:uppercase;
+}
+
+.input-icon-wrap{
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+
+.field-ico{
+  position:absolute;
+  left:13px;
+  z-index:2;
+  font-size:15px;
+  opacity:.62;
+  pointer-events:none;
+}
+
+.input-icon-wrap input{
+  width:100%;
+  min-height:44px;
+  border:1px solid rgba(48,66,216,.15);
+  border-radius:15px;
+  padding:0 14px 0 42px;
+  color:#1f2a44;
+  background:rgba(255,255,255,.78);
+  outline:0;
+  font-size:13px;
+  font-weight:650;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    0 10px 20px rgba(48,66,216,.06);
+  transition:.22s ease;
+}
+
+.input-icon-wrap input::placeholder{
+  color:rgba(31,42,68,.42);
+  font-weight:650;
+}
+
+.input-icon-wrap input:focus{
+  border-color:rgba(48,66,216,.48);
+  box-shadow:
+    0 0 0 4px rgba(48,66,216,.10),
+    0 14px 25px rgba(48,66,216,.09);
+  transform:translateY(-1px);
+}
+
+.input-icon-select input{
+  padding-right:34px;
+}
+
+.field-chevron{
+  position:absolute;
+  right:13px;
+  color:rgba(48,66,216,.45);
+  font-size:14px;
+  pointer-events:none;
+}
+
+/* Buttons */
+.entry-card .btn{
+  position:relative;
+  z-index:1;
+  width:100%;
+  min-height:44px;
+  margin-top:8px;
+  border-radius:15px;
+  border:0;
+  font-size:13px;
+  font-weight:900;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+
+.entry-card .mobile-start-btn,
+.entry-card .btn.green{
+  color:#fff;
+  background:linear-gradient(135deg, #0fb981, #18a6c4 58%, #3042d8) !important;
+  box-shadow:0 16px 30px rgba(24,166,196,.24) !important;
+}
+
+.entry-card .btn.ghost{
+  color:#263455;
+  background:rgba(255,255,255,.68) !important;
+  border:1px solid rgba(48,66,216,.16) !important;
+  box-shadow:none !important;
+}
+
+.entry-card .btn:hover{
+  transform:translateY(-2px);
+  filter:saturate(1.08);
+}
+
+.mobile-join-arrow{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:22px;
+  height:22px;
+  margin-left:6px;
+  border-radius:50%;
+  background:rgba(255,255,255,.22);
+  font-size:14px;
+}
+
+/* Fair play mini card */
+.mini-card{
+  position:relative;
+  z-index:1;
+  margin-top:14px;
+  padding:13px 13px 13px 42px;
+  border-radius:18px;
+  background:linear-gradient(135deg, rgba(255,159,67,.14), rgba(48,66,216,.08));
+  border:1px solid rgba(255,255,255,.68);
+  color:#263455;
+}
+
+.mini-card::before{
+  content:"✓";
+  position:absolute;
+  left:13px;
+  top:14px;
+  width:20px;
+  height:20px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  color:white;
+  font-size:12px;
+  font-weight:900;
+  background:linear-gradient(135deg, #12a38f, #18a6c4);
+  box-shadow:0 9px 18px rgba(18,163,143,.24);
+}
+
+.mini-card h4{
+  margin:0;
+  font-size:13px;
+  font-weight:950;
+}
+
+.mini-card p{
+  margin:5px 0 0;
+  color:rgba(31,42,68,.66);
+  font-size:11px;
+  line-height:1.4;
+  font-weight:650;
+}
+
+/* =========================
+   Mobile Style
+   ========================= */
+@media (max-width:768px){
+
+  .mobile-only{
+    display:inline-flex !important;
+  }
+
+  .desktop-only,
+  .entry-card .desktop-only{
+    display:none !important;
+  }
+
+  .glass.entry-card{
+    width:100% !important;
+    margin:12px 0 0 !important;
+    padding:16px 14px 18px !important;
+    border-radius:22px !important;
+    background:#ffffff !important;
+    border:1px solid rgba(48,66,216,.10) !important;
+    box-shadow:0 10px 28px rgba(48,66,216,.10) !important;
+    backdrop-filter:none !important;
+    -webkit-backdrop-filter:none !important;
+  }
+
+  .glass.entry-card::before{
+    width:110px;
+    height:110px;
+    top:-56px;
+    right:-52px;
+    opacity:.65;
+  }
+
+  .glass.entry-card::after{
+    left:16px;
+    right:16px;
+    height:3px;
+  }
+
+  .entry-panel-head{
+    margin-bottom:14px;
+  }
+
+  .entry-panel-head h3{
+    font-size:20px;
+    color:#1a2d5a;
+  }
+
+  .entry-head-ico{
+    width:32px;
+    height:32px;
+    border-radius:11px;
+    display:inline-grid !important;
+    place-items:center;
+    background:linear-gradient(135deg, rgba(106,90,249,.15), rgba(48,66,216,.12));
+    font-size:16px;
+  }
+
+  .input-icon-group{
+    margin-bottom:10px;
+  }
+
+  .input-icon-group label{
+    position:absolute;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+  }
+
+  .input-icon-wrap input{
+    min-height:48px;
+    border-radius:13px !important;
+    padding:13px 14px 13px 42px !important;
+    border:1px solid rgba(48,66,216,.16) !important;
+    background:#fff !important;
+    font-size:16px !important;
+    box-shadow:0 5px 15px rgba(48,66,216,.05);
+  }
+
+  .field-ico{
+    left:13px;
+    font-size:16px;
+    opacity:.58;
+  }
+
+  .field-chevron{
+    display:inline-flex !important;
+    right:13px;
+  }
+
+  .input-icon-select input{
+    padding-right:34px !important;
+  }
+
+  .mobile-start-btn{
+    min-height:50px !important;
+    border-radius:14px !important;
+    font-size:14px !important;
+    background:linear-gradient(135deg, #6a5af9 0%, #3042d8 100%) !important;
+    box-shadow:0 10px 24px rgba(106,90,249,.32) !important;
+  }
+
+  .mobile-lb-btn{
+    width:100%;
+    min-height:44px !important;
+    margin-top:8px !important;
+    border-radius:13px !important;
+    background:#f5f7ff !important;
+    color:#3042d8 !important;
+    border:1px solid rgba(48,66,216,.16) !important;
+    box-shadow:none !important;
+  }
+}
+
+@media (max-width:400px){
+  .entry-panel-head h3{
+    font-size:19px;
+  }
+
+  .input-icon-wrap input{
+    font-size:15px !important;
+  }
+
+  .mobile-start-btn,
+  .mobile-lb-btn{
+    font-size:13px !important;
+  }
+}
+
+
+
+/* ======================================================
+   COMPACT ADMIN SCREEN ONLY
+   يصغر لوحة الأدمن بدون تغيير HTML
+   ====================================================== */
+
+@media (min-width: 769px){
+
+  /* الخلفية العامة للأدمن */
+  #adminScreen{
+    width: min(1180px, calc(100% - 70px)) !important;
+    margin: 14px auto 0 !important;
+    padding: 16px !important;
+    border-radius: 26px !important;
+    min-height: auto !important;
+    max-height: calc(100dvh - 110px) !important;
+    overflow: hidden !important;
+  }
+
+  /* توزيع الناف + المحتوى */
+  #adminScreen .admin-layout{
+    display: grid !important;
+    grid-template-columns: 260px 1fr !important;
+    gap: 16px !important;
+    align-items: start !important;
+  }
+
+  /* الناف الجانبي أصغر وثابت */
+  #adminScreen .glass.admin-nav.admin-d-only{
+    position: sticky !important;
+    top: 92px !important;
+    z-index: 50 !important;
+
+    width: 100% !important;
+    max-height: calc(100dvh - 140px) !important;
+    padding: 16px 14px !important;
+    border-radius: 22px !important;
+
+    background: linear-gradient(
+      145deg,
+      rgba(255,255,255,.58),
+      rgba(255,255,255,.30)
+    ) !important;
+
+    border: 1px solid rgba(255,255,255,.48) !important;
+    box-shadow: 0 18px 38px rgba(48,66,216,.12) !important;
+
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+
+    overflow-y: auto !important;
+  }
+
+  /* أزرار الناف */
+  #adminScreen .admin-nav .admin-tab{
+    width: 100% !important;
+    min-height: 48px !important;
+    padding: 11px 14px !important;
+    margin-bottom: 10px !important;
+
+    border-radius: 16px !important;
+    border: 1px solid transparent !important;
+
+    font-size: 15px !important;
+    font-weight: 900 !important;
+    letter-spacing: -.2px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+
+    color: #17213f !important;
+    background: transparent !important;
+  }
+
+  #adminScreen .admin-nav .admin-tab.active{
+    background: rgba(255,255,255,.36) !important;
+    border-color: rgba(92,69,223,.18) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.6) !important;
+    color: #101a38 !important;
+  }
+
+  #adminScreen .admin-nav .admin-tab:hover{
+    background: rgba(255,255,255,.28) !important;
+  }
+
+  /* زر Logout */
+  #adminScreen #adminLogout{
+    width: 100% !important;
+    min-height: 44px !important;
+    margin-top: 12px !important;
+    padding: 10px 14px !important;
+    border-radius: 15px !important;
+    font-size: 13px !important;
+  }
+
+  /* محتوى الأدمن */
+  #adminScreen .glass.admin-content{
+    width: 100% !important;
+    max-height: calc(100dvh - 140px) !important;
+    overflow-y: auto !important;
+
+    padding: 24px !important;
+    border-radius: 24px !important;
+
+    background: linear-gradient(
+      145deg,
+      rgba(255,255,255,.54),
+      rgba(255,255,255,.26)
+    ) !important;
+
+    border: 1px solid rgba(255,255,255,.50) !important;
+    box-shadow: 0 20px 45px rgba(48,66,216,.13) !important;
+
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+  }
+
+  /* زر Pause Challenge */
+  #adminScreen .admin-challenge-toggle-wrap{
+    margin-bottom: 14px !important;
+    gap: 10px !important;
+  }
+
+  #adminScreen #adminToggleChallengeBtn{
+    min-height: 42px !important;
+    padding: 10px 20px !important;
+    border-radius: 14px !important;
+    font-size: 14px !important;
+  }
+
+  #adminScreen #adminChallengeStatusLabel{
+    font-size: 13px !important;
+  }
+
+  /* عنوان الصفحة */
+  #adminScreen .panel-title{
+    margin-bottom: 18px !important;
+  }
+
+  #adminScreen .panel-title h3{
+    font-size: 26px !important;
+    line-height: 1.1 !important;
+    letter-spacing: -.7px !important;
+  }
+
+  #adminScreen .panel-title p{
+    margin-top: 8px !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+  }
+
+  #adminScreen .badge{
+    padding: 7px 12px !important;
+    border-radius: 999px !important;
+    font-size: 12px !important;
+  }
+
+  /* الإحصائيات */
+  #adminScreen .grid-3{
+    gap: 14px !important;
+  }
+
+  #adminScreen .stat{
+    padding: 18px 18px !important;
+    border-radius: 18px !important;
+    min-height: 84px !important;
+  }
+
+  #adminScreen .stat b{
+    font-size: 26px !important;
+    line-height: 1 !important;
+  }
+
+  #adminScreen .stat span{
+    margin-top: 8px !important;
+    display: block !important;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+  }
+
+  /* Active questions card */
+  #adminScreen .mini-card{
+    margin-top: 14px !important;
+    padding: 18px 18px 18px 48px !important;
+    border-radius: 20px !important;
+  }
+
+  #adminScreen .mini-card::before{
+    left: 16px !important;
+    top: 18px !important;
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 13px !important;
+  }
+
+  #adminScreen .mini-card h4{
+    font-size: 16px !important;
+    line-height: 1.2 !important;
+  }
+
+  #adminScreen .mini-card p{
+    font-size: 12px !important;
+    line-height: 1.45 !important;
+  }
+
+  /* الحقول */
+  #adminScreen .input-group{
+    margin-bottom: 12px !important;
+  }
+
+  #adminScreen .input-group label{
+    font-size: 11px !important;
+    margin-bottom: 6px !important;
+  }
+
+  #adminScreen input,
+  #adminScreen select{
+    min-height: 44px !important;
+    height: 44px !important;
+    border-radius: 14px !important;
+    padding: 0 14px !important;
+    font-size: 14px !important;
+  }
+
+  #adminScreen textarea{
+    min-height: 92px !important;
+    border-radius: 14px !important;
+    padding: 12px 14px !important;
+    font-size: 14px !important;
+  }
+
+  /* أزرار عامة داخل الأدمن */
+  #adminScreen .btn{
+    min-height: 42px !important;
+    padding: 10px 15px !important;
+    border-radius: 14px !important;
+    font-size: 13px !important;
+  }
+
+  #adminScreen .btn.small{
+    min-height: 38px !important;
+    padding: 8px 12px !important;
+    border-radius: 12px !important;
+    font-size: 12px !important;
+  }
+
+  /* صفحة الأسئلة */
+  #adminScreen .admin-form-card{
+    padding: 18px !important;
+    border-radius: 20px !important;
+  }
+
+  #adminScreen .grid-2{
+    gap: 14px !important;
+  }
+
+  #adminScreen .admin-opt-row{
+    gap: 10px !important;
+    margin-bottom: 10px !important;
+  }
+
+  #adminScreen .admin-opt-badge{
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 12px !important;
+    font-size: 13px !important;
+  }
+
+  #adminScreen .admin-form-actions{
+    gap: 10px !important;
+    margin-top: 14px !important;
+  }
+
+  /* Question list */
+  #adminScreen .question-list{
+    gap: 12px !important;
+  }
+
+  #adminScreen .question-item,
+  #adminScreen .question-card{
+    padding: 14px !important;
+    border-radius: 18px !important;
+  }
+
+  #adminScreen .admin-qbank-heading{
+    font-size: 19px !important;
+    margin-top: 22px !important;
+  }
+
+  /* جدول النتائج */
+  #adminScreen .table-wrap{
+    border-radius: 18px !important;
+    max-height: 430px !important;
+    overflow: auto !important;
+  }
+
+  #adminScreen table{
+    font-size: 12px !important;
+  }
+
+  #adminScreen table th,
+  #adminScreen table td{
+    padding: 10px 12px !important;
+    font-size: 12px !important;
+  }
+
+  /* السحب داخل admin-content يكون ناعم */
+  #adminScreen .glass.admin-content::-webkit-scrollbar,
+  #adminScreen .glass.admin-nav.admin-d-only::-webkit-scrollbar{
+    width: 8px;
+  }
+
+  #adminScreen .glass.admin-content::-webkit-scrollbar-thumb,
+  #adminScreen .glass.admin-nav.admin-d-only::-webkit-scrollbar-thumb{
+    background: rgba(48,66,216,.25);
+    border-radius: 999px;
+  }
+
+  #adminScreen .glass.admin-content::-webkit-scrollbar-track,
+  #adminScreen .glass.admin-nav.admin-d-only::-webkit-scrollbar-track{
+    background: rgba(255,255,255,.22);
+    border-radius: 999px;
+  }
+}
+
+/* ======================================================
+   أصغر للشاشات المتوسطة
+   ====================================================== */
+@media (min-width: 769px) and (max-width: 1100px){
+
+  #adminScreen{
+    width: min(1040px, calc(100% - 36px)) !important;
+    padding: 14px !important;
+  }
+
+  #adminScreen .admin-layout{
+    grid-template-columns: 230px 1fr !important;
+    gap: 14px !important;
+  }
+
+  #adminScreen .glass.admin-nav.admin-d-only{
+    padding: 14px 12px !important;
+  }
+
+  #adminScreen .admin-nav .admin-tab{
+    font-size: 13.5px !important;
+    min-height: 44px !important;
+    padding: 10px 12px !important;
+  }
+
+  #adminScreen .glass.admin-content{
+    padding: 20px !important;
+  }
+
+  #adminScreen .panel-title h3{
+    font-size: 23px !important;
+  }
+
+  #adminScreen .stat{
+    padding: 15px !important;
+  }
+}
+
+
+
+
+/* ======================================================
+   FIXED TOP ADMIN LAYOUT
+   admin-nav فوق ثابت + admin-page active داخل admin-content
+   ضعيه آخر <style>
+   ====================================================== */
+
+@media (min-width:769px){
+
+  body.admin-mode #adminScreen{
+    width:min(1180px, calc(100% - 70px)) !important;
+    height:calc(100dvh - 110px) !important;
+    max-height:calc(100dvh - 110px) !important;
+    margin:14px auto 0 !important;
+    padding:14px !important;
+    border-radius:26px !important;
+    overflow:hidden !important;
+  }
+
+  /* هذا أهم سطر: يخلي nav فوق و content تحت */
+  body.admin-mode #adminScreen .admin-layout{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:12px !important;
+    width:100% !important;
+    height:100% !important;
+    min-height:0 !important;
+    overflow:hidden !important;
+    position:relative !important;
+  }
+
+  /* Admin nav فوق وثابت */
+  body.admin-mode #adminScreen .glass.admin-nav.admin-d-only{
+    position:sticky !important;
+    top:0 !important;
+    z-index:999 !important;
+
+    width:100% !important;
+    flex:0 0 auto !important;
+
+    display:flex !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    gap:10px !important;
+
+    padding:10px 12px !important;
+    border-radius:18px !important;
+    max-height:none !important;
+    overflow:visible !important;
+
+    background:linear-gradient(135deg, rgba(255,255,255,.88), rgba(255,255,255,.56)) !important;
+    border:1px solid rgba(255,255,255,.72) !important;
+    box-shadow:0 12px 30px rgba(48,66,216,.14) !important;
+
+    backdrop-filter:blur(20px) !important;
+    -webkit-backdrop-filter:blur(20px) !important;
+  }
+
+  /* أزرار الناف تصير أفقية وصغيرة */
+  body.admin-mode #adminScreen .admin-nav.admin-d-only .admin-tab{
+    width:auto !important;
+    min-width:135px !important;
+    min-height:40px !important;
+
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:7px !important;
+
+    padding:9px 14px !important;
+    margin:0 !important;
+
+    border-radius:13px !important;
+    border:1px solid rgba(48,66,216,.12) !important;
+
+    background:rgba(255,255,255,.42) !important;
+    color:#17213f !important;
+
+    font-size:13px !important;
+    font-weight:900 !important;
+    white-space:nowrap !important;
+  }
+
+  body.admin-mode #adminScreen .admin-nav.admin-d-only .admin-tab.active{
+    color:#fff !important;
+    background:linear-gradient(135deg,#3042d8,#18a6c4) !important;
+    border-color:transparent !important;
+    box-shadow:0 10px 22px rgba(48,66,216,.25) !important;
+  }
+
+  body.admin-mode #adminScreen #adminLogout{
+    width:auto !important;
+    min-width:105px !important;
+    min-height:40px !important;
+
+    margin:0 0 0 auto !important;
+    padding:9px 14px !important;
+    border-radius:13px !important;
+
+    font-size:13px !important;
+    white-space:nowrap !important;
+  }
+
+  /* admin-content تحت الناف ويعمل Scroll */
+  body.admin-mode #adminScreen .glass.admin-content{
+    flex:1 1 auto !important;
+    min-height:0 !important;
+    width:100% !important;
+
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+
+    padding:20px !important;
+    border-radius:22px !important;
+
+    background:linear-gradient(145deg, rgba(255,255,255,.72), rgba(255,255,255,.34)) !important;
+    border:1px solid rgba(255,255,255,.62) !important;
+    box-shadow:0 16px 38px rgba(48,66,216,.13) !important;
+
+    backdrop-filter:blur(20px) !important;
+    -webkit-backdrop-filter:blur(20px) !important;
+  }
+
+  /* مهم: يظهر فقط admin-page active */
+  body.admin-mode #adminScreen .admin-content .admin-page{
+    display:none !important;
+  }
+
+  body.admin-mode #adminScreen .admin-content .admin-page.active{
+    display:block !important;
+  }
+
+  /* تصغير Dashboard */
+  body.admin-mode #adminScreen .admin-challenge-toggle-wrap{
+    margin:0 0 12px !important;
+  }
+
+  body.admin-mode #adminScreen #adminToggleChallengeBtn{
+    min-height:40px !important;
+    padding:9px 20px !important;
+    border-radius:14px !important;
+    font-size:13px !important;
+  }
+
+  body.admin-mode #adminScreen #adminChallengeStatusLabel{
+    font-size:13px !important;
+  }
+
+  body.admin-mode #adminScreen .panel-title{
+    margin-bottom:14px !important;
+  }
+
+  body.admin-mode #adminScreen .panel-title h3{
+    font-size:25px !important;
+    line-height:1.1 !important;
+  }
+
+  body.admin-mode #adminScreen .panel-title p{
+    font-size:13px !important;
+    margin-top:7px !important;
+  }
+
+  body.admin-mode #adminScreen .grid-3{
+    gap:14px !important;
+    margin-top:14px !important;
+  }
+
+  body.admin-mode #adminScreen .stat{
+    min-height:78px !important;
+    padding:16px !important;
+    border-radius:18px !important;
+  }
+
+  body.admin-mode #adminScreen .stat b{
+    font-size:25px !important;
+  }
+
+  body.admin-mode #adminScreen .stat span{
+    font-size:12px !important;
+  }
+
+  body.admin-mode #adminScreen .mini-card{
+    margin-top:14px !important;
+    padding:16px 16px 16px 48px !important;
+    border-radius:20px !important;
+  }
+
+  body.admin-mode #adminScreen .mini-card h4{
+    font-size:16px !important;
+  }
+
+  body.admin-mode #adminScreen .mini-card p{
+    font-size:12px !important;
+  }
+
+  body.admin-mode #adminScreen input,
+  body.admin-mode #adminScreen select{
+    min-height:42px !important;
+    height:42px !important;
+    border-radius:14px !important;
+    font-size:13px !important;
+  }
+
+  body.admin-mode #adminScreen textarea{
+    min-height:88px !important;
+    border-radius:14px !important;
+    font-size:13px !important;
+  }
+
+  body.admin-mode #adminScreen .btn{
+    min-height:40px !important;
+    padding:9px 14px !important;
+    border-radius:13px !important;
+    font-size:13px !important;
+  }
+
+  /* Scrollbar مرتب */
+  body.admin-mode #adminScreen .glass.admin-content::-webkit-scrollbar{
+    width:8px;
+  }
+
+  body.admin-mode #adminScreen .glass.admin-content::-webkit-scrollbar-thumb{
+    background:rgba(48,66,216,.25);
+    border-radius:999px;
+  }
+
+  body.admin-mode #adminScreen .glass.admin-content::-webkit-scrollbar-track{
+    background:rgba(255,255,255,.25);
+    border-radius:999px;
+  }
+}
+
+/* للشاشات الأقل عرضًا: الأزرار تلتف بدل ما تنضغط */
+@media (min-width:769px) and (max-width:1050px){
+
+  body.admin-mode #adminScreen .glass.admin-nav.admin-d-only{
+    flex-wrap:wrap !important;
+  }
+
+  body.admin-mode #adminScreen .admin-nav.admin-d-only .admin-tab{
+    flex:1 1 150px !important;
+  }
+
+  body.admin-mode #adminScreen #adminLogout{
+    margin-left:0 !important;
+    flex:1 1 120px !important;
+  }
+}
 </style>
 
 <body>
@@ -3808,21 +4841,21 @@ body.admin-mode .topbar{
         <div class="input-group input-icon-group">
           <label for="staffName">Full Name</label>
           <div class="input-icon-wrap">
-            <span class="field-ico" aria-hidden="true">👤</span>
+            <span class="field-ico" aria-hidden="true"></span>
             <input id="staffName" placeholder="Full Name" autocomplete="name" />
           </div>
         </div>
         <div class="input-group input-icon-group">
           <label for="staffNo">Staff Number</label>
           <div class="input-icon-wrap">
-            <span class="field-ico" aria-hidden="true">🪪</span>
+            <span class="field-ico" aria-hidden="true"></span>
             <input id="staffNo" placeholder="Staff Number" inputmode="numeric" autocomplete="off" />
           </div>
         </div>
         <div class="input-group input-icon-group">
           <label for="unitName">Unit / Department</label>
           <div class="input-icon-wrap input-icon-select">
-            <span class="field-ico" aria-hidden="true">🏥</span>
+            <span class="field-ico" aria-hidden="true"></span>
             <input id="unitName" placeholder="Unit / Department" />
             <span class="field-chevron mobile-only" aria-hidden="true">▾</span>
           </div>
