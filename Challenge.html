@@ -6205,7 +6205,7 @@ body.admin-mode .topbar{
 
       if(window.RCCloudSync && window.RCCloudSync.isConfigured()){
         window.RCCloudSync.init().then(function(ok){
-          if(ok) showToast('Cloud connected — data is shared with everyone.');
+          if(ok) showToast('');
           bootAppData();
         });
       }else{
